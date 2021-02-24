@@ -1,0 +1,21 @@
+01234567890
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+a b c d e f g h i j k l m n o p q r s t u v w x
+*+?()|.^$[]{}
+
+bat mat pot sat cat rat pat vat hat hats
+    couch pouch ouch out 
+buzz buzzz buzzzz buzzzzzz buzzzzzz
+
+//  find: ^(\d{3})(\d{3})(\d{4})$ replace: $1-$2-$3
+//  find: ^(\d{3})-(\d{3})-(\d{4})$ replace: $1$2$3
+111-222-3333
+444-555-6666
+777-888-9999
+
+//  find: ^https://(\w+\.(org|com|gov))$ replace: $1
+//  find: ^(\w+\.(org|com|gov))$ replace: https://$1
+https://golang.org
+https://youtube.com
+https://usa.gov
