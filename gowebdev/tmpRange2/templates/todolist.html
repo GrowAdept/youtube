@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Todo List</title>
+    <meta charset="UTF-8">
+    </head>
+    <body>  
+        <ul>
+            <b>Todo</b>
+            {{range .}}
+                {{if ne .Done true}}
+                    <li>{{.Name}}</li>
+                {{end}}
+            {{end}}
+        </ul>
+        <br>
+        <ul>
+            <b>Done</b>
+            {{range .}}
+                {{if .Done}}
+                    <li>{{.Name}}</li>
+                {{end}}
+            {{end}}
+        </ul>
+    </body>
+</html>

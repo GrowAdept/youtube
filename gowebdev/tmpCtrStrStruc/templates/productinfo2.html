@@ -1,0 +1,36 @@
+<!--
+	prod1 = product{
+		ProdID: 15,
+		Name:   "Wicked Cool Phone",
+		Cost:   899,
+		Specs: prodSpec{
+			Size:   "150 x 70 x 7 mm",
+			Weight: 65,
+			Descr:  "Over priced shiny thing designed to shatter impact",
+		},
+	}
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Product Info</title>
+    <meta charset="UTF-8">
+  </head>
+  
+  <body>
+      <h1>Product Info</h1>
+      <ul>
+          <li>{{.Name}} Id#:{{.ProdID}}</li>
+          <li>${{.Cost}}</li>
+          <li>
+              Specs
+              <ul>
+                  <li>Size: {{.Specs.Size}}</li>
+                  <li>Weight: {{.Specs.Weight}}</li>
+                  <li>Description: {{.Specs.Descr}}</li>
+              </ul>
+          </li>
+      </ul>
+  </body>
+</html>

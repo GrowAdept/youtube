@@ -1,0 +1,34 @@
+<!--
+    type user struct {
+	Name     string
+	Language string
+	Member   bool
+    }
+
+    bob := user{"Bob Smith", "English", false}
+	bob := user{"Juan Hernández", "Spanish", true}
+	bob := user{"Zhang Wei", "Mandarin", true}
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Membership Status</title>
+    <meta charset="UTF-8">
+    </head>
+    <body>
+        {{/*A pipeline is a possibly chained sequence of "commands". A command is */}}
+        {{/*a simple value (argument) or a function or method call, possibly with multiple arguments: */}}
+
+        {{/*If the value of the pipeline is empty, no output is generated;*/}}
+        {{/*The empty values are false, 0, any nil pointer or interface value, */}}
+        {{/*and any array, slice, map, or string of length zero.*/}}
+
+        {{if .Member}}   
+            <h1>Thank you for joining</h1>
+        {{else}}
+            <h1>Please signup to enjoy memborship benefits</h1>
+        {{end}}
+
+    </body>
+</html>

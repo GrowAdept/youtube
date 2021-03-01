@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Account Registration</h2><br>
+<ul>
+    <li>usernames must contain only letters or numbers</li>
+    <li>usernames must be longer than 4 characters but shorter than 51</li>
+    <li>passwords must contain a uppercase letter, lowercase letter, number, and special character</li>
+    <li>passwords must be greater than 11 characters but less than 60</li>
+</ul><br>
+
+<form action="/registerauth" method="POST">
+    <label for="username">Name:</label><br>
+    <input type="text" id="username" name="username"><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+    <input type="submit" value="Submit">
+</form> 
+
+<br><br>
+{{if .}}
+    {{.}}
+{{end}}
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Grocery List</title>
+    <meta charset="UTF-8">
+    </head>
+    <body>
+        <h3>Grocery List</h3>
+        <ol>
+            {{range $index, $element := .}}
+                <li>Index: {{$index}} Element: {{$element}} Value:{{.}}</li>
+            {{end}}
+        </ol>
+    </body>
+</html>

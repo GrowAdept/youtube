@@ -1,0 +1,54 @@
+<!--
+    type user struct {
+	Name     string
+	Language string
+	Member   bool
+    }
+
+    bob := user{"Bob Smith", "English", false}
+	bob := user{"Juan Hernández", "Spanish", true}
+	bob := user{"Zhang Wei", "Mandarin", true}
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Greeting</title>
+    <meta charset="UTF-8">
+    </head>
+    <body>
+
+        passed in value: {{.}}<br><br>
+        
+        {{/* binary comparison operators defined as functions */}}
+        {{/*
+            eq	Returns the boolean truth of arg1 == arg2
+            ne	Returns the boolean truth of arg1 != arg2
+            lt  Returns the boolean truth of arg1 < arg2
+            le	Returns the boolean truth of arg1 <= arg2
+            gt	Returns the boolean truth of arg1 > arg2
+            ge	Returns the boolean truth of arg1 >= arg2
+        */}}
+
+        eq .Language "English": {{eq .Language "English"}}<br>
+        eq .Language "Mandarin": {{eq .Language "Mandarin"}}<br>
+        eq .Language "Spanish": {{eq .Language "Spanish"}}<br><br>
+
+        {{if eq .Language "English"}}
+            <h1>Hello</h1>
+        {{else if eq .Language "Mandarin"}}
+            <h1>你好</h1>
+        {{else if eq .Language "Spanish"}}
+            <h1>Hola</h1>
+        {{else}}
+        <hi>
+            <ul>
+                <li>Hello</li>
+                <li>你好</li>
+                <li>Hola</li>
+            </ul>
+        </hi>
+        {{end}}
+
+    </body>
+</html>
