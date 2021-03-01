@@ -1,0 +1,3 @@
+Clear is better than clever.
+Don't just check errors, handle them gracefully.
+Proverbs from @rob_pike's inspiring talk at Gopherfest SV 2015 (video).
