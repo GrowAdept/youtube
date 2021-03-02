@@ -1,0 +1,79 @@
+// Only "Print" and "...interface{}": prints to standard out (terminal), still formats escaped characters
+func Print(a ...interface{}) (n int, err error)
+func Println(a ...interface{}) (n int, err error)
+
+
+// "Sprint": returns resulting string
+// example: saving the printed value to a variable instead of print to the screen
+func Sprint(a ...interface{}) string
+func Sprintln(a ...interface{}) string
+
+
+// Printf" and "format string": can be formatted with verbs
+// exampel: 14.00003 ---> $14.00
+func Printf(format string, a ...interface{}) (n int, err error)
+func Fprintf(w io.Writer, format string, a ...interface{}) (n int, err error)
+
+
+// "Fprint" and "w io.Writer": prints to "w io.Writer" allowing to print to more than standard out (terminal)
+// example: print to a file instead of terminal
+func Fprint(w io.Writer, a ...interface{}) (n int, err error)
+func Fprintf(w io.Writer, format string, a ...interface{}) (n int, err error)
+func Fprintln(w io.Writer, a ...interface{}) (n int, err error)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Only "Scan" and "...interface": scans text from from standard input, storing successive spaced seperated values into successive arguements
+func Scan(a ...interface{}) (n int, err error)
+func Scanln(a ...interface{}) (n int, err error)
+
+
+func Scanf(format string, a ...interface{}) (n int, err error)
+
+func Sprintf(format string, a ...interface{}) string
+func Sscan(str string, a ...interface{}) (n int, err error)
+func Sscanf(str string, format string, a ...interface{}) (n int, err error)
+func Sscanln(str string, a ...interface{}) (n int, err error)
+func Fscan(r io.Reader, a ...interface{}) (n int, err error)
+func Fscanf(r io.Reader, format string, a ...interface{}) (n int, err error)
+func Fscanln(r io.Reader, a ...interface{}) (n int, err error)
+
+
+
+
+
+type Formatter
+type GoStringer
+type ScanState
+type Scanner
+type State
+type Stringer
