@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html> 
+<body>
+
+<h2>Select Query</h2>
+
+<form action="/productsearch" method="POST">
+  <label for="product">Product Name:</label><br>
+  <input type="text" id="productID" name="productName" value="phone"><br>
+  <input type="submit" value="Search">
+</form>
+
+{{if .}}
+  <ul>
+    <li>Id: {{.ID}}</li>
+    <li>Name: {{.Name}}</li>
+    <li>Price: ${{.Price}}</li>
+    <li>Description: {{.Description}}</li>
+  </ul>
+{{end}}
+</body>
+</html>

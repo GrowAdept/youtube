@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html> 
+<body>
+
+<h2>Update Product</h2>
+
+<form action="/updateresult/?idproducts={{.ID}}" method="POST">
+  <label for="nameID">Name:</label><br>
+  <input type="text" id="nameID" name="nameName" value="{{.Name}}"><br>
+  <label for="priceID">Price:</label><br>
+  <input type="text" id="priceID" name="priceName" value="{{.Price}}"><br>
+  <label for="descrID">Description:</label><br>
+  <input type="text" id="descrID" name="descrName" value="{{.Description}}"><br>
+  <input type="submit" value="Update Product">
+</form>
+<br><br><br>
+<a href="/browse">Browse Products</a>
+
+</body>
+</html>

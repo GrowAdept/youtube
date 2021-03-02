@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html> 
+<body>
+
+<h2>Price Filter</h2>
+
+<form action="/productsearch" method="POST">
+  <label for="minPriceID">Minimum Price:</label><br>
+  <input type="number" id="minPriceID" name="minPriceName" value="25"><br>
+  <label for="maxPriceID">Max Price:</label><br>
+  <input type="number" id="maxPriceID" name="maxPriceName" value="800"><br>
+  <input type="submit" value="Browse Products">
+</form>
+<br><br>
+
+{{if .}}
+  <ul>
+  {{range .}}
+    <li>ID: {{.ID}}</li>
+    <li>Name: {{.Name}}</li>
+    <li>Price: {{.Price}}</li>
+    <li>Description: {{.Description}}</li>
+    <br>
+  {{end}}
+  </ul>
+{{end}}
+</body>
+</html>
