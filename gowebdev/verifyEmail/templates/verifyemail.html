@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Check your email for verification code</h2><br>
+
+<form action="/verifyemail" method="POST">
+    <label for="email">Email:</label><br>
+    <input type="text" {{if .Email}}value="{{.Email}}"{{end}} id="email" name="email"><br>
+    <label for="vercode">Email Verification Code:</label><br>
+    <input type="text" id="vercode" name="vercode"><br>
+    <input type="submit" value="Submit">
+</form> 
+
+<br><br>
+{{.ErrMessage}}
+
+</body>
+</html>
