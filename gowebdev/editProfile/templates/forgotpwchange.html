@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Create New Password</h2><br>
+<ul>
+    <li>usernames must contain only letters or numbers</li>
+    <li>usernames must be longer than 4 characters but shorter than 51</li>
+    <li>passwords must contain a uppercase letter, lowercase letter, number, and special character</li>
+    <li>passwords must be greater than 11 characters but less than 60</li>
+</ul><br>
+
+<form action="/account/forgotpw/verify" method="POST">
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br>
+    <label for="confirmpassword">Confirm Password:</label><br>
+    <input type="password" id="confirmpassword" name="confirmpassword"><br>
+    <!-- hidden inputs will not be rendered but is visible via the developer tools -->
+    <!-- another option to pass these values would be with URL parameters -->
+    <input type="hidden" name="username" value="{{.username}}">
+    <input type="hidden" name="emailVerPassword" value="{{.emailVerPassword}}">
+    <input type="submit" value="Submit">
+</form> 
+<br><br>
+{{if .UserMessage}}
+    {{.}}
+{{end}}
+
+</body>
+</html>

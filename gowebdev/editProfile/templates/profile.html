@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Personal Info</h2><br>
+
+<form action="/account/edit" method="POST">
+    <label for="username">Name:</label><br>
+    <!-- readonly input attribute specifies field as read-only -->
+    <input type="text" id="username" value="{{.Username}}" name="username" readonly><br>
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" value="{{.Email}}" name="email" readonly><br>
+    <label for="created">Created:</label><br>
+    <input type="text" id="created-at" value="{{.CreatedAt}}" name="created-at" readonly><br>
+    <label for="isActive">Email Verified:</label><br>
+    <input type="text" id="is-active" value="{{if eq .IsActive 1}}active{{else}}Unveried Email{{end}}" name="is-active" readonly><br>
+    <br>
+    <input type="submit" value="Edit">
+</form> 
+
+<br><br>
+
+</body>
+</html>

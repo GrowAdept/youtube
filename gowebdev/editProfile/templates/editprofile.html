@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Edit Personal Info</h2><br>
+{{if .UserMessage}}<h4>{{.UserMessage}}</h4>{{end}}
+
+<form action="/account/edit/verify" method="POST">
+    <label for="username">Name:</label><br>
+    <input type="text" id="username" value="{{.User.Username}}" name="username"><br>
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" value="{{.User.Email}}" name="email"><br>
+    <label for="created">Created:</label><br>
+    <input type="text" id="created-at" value="{{.User.CreatedAt}}" name="created-at" readonly><br>
+    <label for="password">Current Password (required):</label><br>
+    <input type="password" id="password" name="password"><br>
+    <label for="newpassword">New Password:</label><br>
+    <input type="password" id="newpassword" name="newpassword"><br>
+    <label for="confirmpassword">Confirm New Password:</label><br>
+    <input type="password" id="confirmpassword" name="confirmpassword"><br>
+    <label for="isActive">Email Verified:</label><br>
+    <input type="text" id="is-active" value="{{if eq .User.IsActive 1}}active{{else}}Unveried Email{{end}}" name="is-active" readonly><br>
+    <br>
+    <input type="submit" value="Update">
+</form> 
+</body>
+</html>
