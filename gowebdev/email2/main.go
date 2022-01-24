@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/smtp"
 	"os"
@@ -20,13 +21,14 @@ func main() {
 	// Set up authentication information.
 	auth := smtp.PlainAuth("", from, password, host)
 	msg := []byte(
-		"From: Justin White <" + from + ">\r\n" +
+		"From: Grow Adept <" + from + ">\r\n" +
 			"To: " + toEmail + "\r\n" +
-			"Subject: Sender Name Test\r\n" +
+			"Subject: Now with sender name\r\n" +
 			"\r\n" +
 			"This is the email body.\r\n")
 	err := smtp.SendMail(address, auth, from, to, msg)
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println("Check for sent email!")
 }
