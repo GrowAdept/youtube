@@ -10,10 +10,9 @@ type Date struct {
 	day   int
 }
 
-func hello()  {
+func Hello() {
 	fmt.Println("Hello")
 }
-
 
 // Methods are capitalized and visible outside of package (universe scope)
 
