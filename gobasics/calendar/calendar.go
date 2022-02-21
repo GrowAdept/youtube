@@ -7,7 +7,7 @@ import "fmt"
 type Date struct {
 	year  int
 	month int
-	day   int
+	Day   int
 }
 
 func Hello() {
@@ -28,7 +28,7 @@ func (d *Date) SetMonth(m int) {
 }
 
 func (d *Date) SetDay(day int) {
-	d.day = day
+	d.Day = day
 }
 
 // If any methods uses a * then it's idomatic in Go to use * in all that types methods
@@ -39,10 +39,10 @@ func (d *Date) Year() int {
 func (d *Date) Month() int {
 	return d.month
 }
-func (d *Date) Day() int {
-	return d.day
+func (d *Date) GetDay() int {
+	return d.Day
 }
 
 func (d *Date) DisplayWorldDate() {
-	fmt.Printf("%v-%v-%v", d.year, d.month, d.day)
+	fmt.Printf("%v-%v-%v", d.year, d.month, d.Day)
 }
