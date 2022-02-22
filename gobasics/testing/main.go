@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"gowebdev/testing/world"
+
+	"github.com/GrowAdept/youtube/gobasics/testing/world"
 )
 
 func main() {
