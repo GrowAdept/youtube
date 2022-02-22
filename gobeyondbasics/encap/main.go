@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/GrowAdept/youtube/gobasics/calendar"
+	"github.com/GrowAdept/youtube/gobeyondbasics/calendar"
 )
 
 func main() {
