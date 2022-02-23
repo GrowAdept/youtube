@@ -13,12 +13,7 @@ type Date struct {
 	Day   int
 }
 
-func Hello() {
-	fmt.Println("Hello")
-}
-
 // Methods are capitalized and visible outside of package (universe scope)
-
 // Setter methods require * to change fields
 // Go convention for naming setter methods is SetFieldname
 // Setter methods can be used to force validation of data

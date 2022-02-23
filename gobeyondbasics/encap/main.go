@@ -1,53 +1,70 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"log"
 
 	"github.com/GrowAdept/youtube/gobeyondbasics/calendar"
 )
 
+type date struct {
+	day int
+}
+
+func (d *date) SetDay(day int) error {
+	if day < 1 || day > 31 {
+		return errors.New("value for day less than 1 or greater than 31")
+	}
+	d.day = day
+	return nil
+}
+
+func (d *date) Day() int {
+	return d.day
+}
+
 func main() {
-	fmt.Println("hello world")
-	calendar.Hello()
+	var myDate date
+	myDate.day = 50
+	fmt.Println("myDate day:", myDate.day)
 
 	// access through getter and setter methods
 	var d calendar.Date
-	d.SetYear(2022)
-	fmt.Println(d.Year())
+	err := d.SetYear(2022)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("year:", d.Year())
 
-	// runs error checking
+	/*
+		err = d.SetDay(50)
+		if err != nil {
+			log.Fatal(err)
+		}
+	*/
 
 	// unexported field stop users from assigning directly
-	/*
-		fmt.Println(d.year)
-		// d.year = 2021
-		// fmt.Println(d.Year())
-	*/
+
+	fmt.Println("year:", d.year)
+	d.year = 2021
+	fmt.Println("year:", d.Year())
 
 	/*
 		// Accidentally exported field
 		d.SetDay(22)
-		fmt.Println(d.GetDay())
+		fmt.Println("day:", d.GetDay())
 		// error checking is avoided by assigning directly
 		d.Day = 100
-		fmt.Println(d.Day)
+		fmt.Println("day:", d.Day)
 	*/
 
-	// .DisplayWorldDate runs method .printMessage (package scope)
-	d.SetMonth(4)
-	d.SetDay(10)
-	d.DisplayWorldDate()
-	// .printMessage method has package scope in calendar.go only
-	// d.printMessage("this will not run")
-
-}
-
-type Date struct {
-	Year  int
-	month int
-	day   int
-}
-
-func (d *Date) SetYear(y int) {
-	d.Year = y
+	/*
+		// .DisplayWorldDate runs method .printMessage (package scope)
+		d.SetMonth(4)
+		d.SetDay(10)
+		d.DisplayWorldDate()
+		// .printMessage method has package scope in calendar.go only
+		// d.printMessage("this will not run")
+	*/
 }
