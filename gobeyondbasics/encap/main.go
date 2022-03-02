@@ -37,6 +37,12 @@ func main() {
 	}
 	fmt.Println("year:", d.Year())
 
+	// unexported field stop users from assigning directly
+
+	// fmt.Println("year:", d.year)
+	// d.year = 2021
+	fmt.Println("year:", d.Year())
+
 	/*
 		err = d.SetDay(50)
 		if err != nil {
@@ -44,27 +50,18 @@ func main() {
 		}
 	*/
 
-	// unexported field stop users from assigning directly
+	// Accidentally exported field
+	d.SetDay(22)
+	fmt.Println("day:", d.GetDay())
+	// error checking is avoided by assigning directly
+	d.Day = 100
+	fmt.Println("day:", d.Day)
 
-	fmt.Println("year:", d.year)
-	d.year = 2021
-	fmt.Println("year:", d.Year())
+	// .DisplayWorldDate runs method .printMessage (package scope)
+	d.SetMonth(4)
+	d.SetDay(10)
+	d.DisplayWorldDate()
+	// .printMessage method has package scope in calendar.go only
+	// d.printMessage("this will not run")
 
-	/*
-		// Accidentally exported field
-		d.SetDay(22)
-		fmt.Println("day:", d.GetDay())
-		// error checking is avoided by assigning directly
-		d.Day = 100
-		fmt.Println("day:", d.Day)
-	*/
-
-	/*
-		// .DisplayWorldDate runs method .printMessage (package scope)
-		d.SetMonth(4)
-		d.SetDay(10)
-		d.DisplayWorldDate()
-		// .printMessage method has package scope in calendar.go only
-		// d.printMessage("this will not run")
-	*/
 }
