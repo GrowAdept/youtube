@@ -1,4 +1,4 @@
-module github.com/GrowAdept/project/gin/gin/APIbasics
+module youtube/gin/ginIntro/APIbasics
 
 go 1.16
 
