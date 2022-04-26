@@ -34,6 +34,7 @@ func main() {
 	}
 }
 
+// GET /hello
 func getHello(c *gin.Context) {
 	// String writes the given string into the response body.
 	// http.StautsOK is http status code saved as constant in http package
@@ -41,6 +42,8 @@ func getHello(c *gin.Context) {
 	c.String(http.StatusOK, "Hello World!")
 }
 
+
+// GET /greet
 func getGreet(c *gin.Context) {
 	// HTML renders the HTTP template specified by its file name.
 	// It also updates the HTTP code and sets the Content-Type as "text/html"
@@ -48,6 +51,7 @@ func getGreet(c *gin.Context) {
 	c.HTML(http.StatusOK, "greeting.html", nil)
 }
 
+// GET /great/:name
 func getGreetName(c *gin.Context) {
 	// Param returns the value of the URL param.
 	// It is a shortcut for c.Params.ByName(key)
@@ -56,6 +60,7 @@ func getGreetName(c *gin.Context) {
 	c.HTML(http.StatusOK, "customGreeting.html", name)
 }
 
+// GET /many
 func getManyData(c *gin.Context) {
 	foods := []string{"chicken sandwich", "fries", "soda", "cookie"}
 	// H is a shortcut for map[string]interface{}
@@ -66,10 +71,12 @@ func getManyData(c *gin.Context) {
 	})
 }
 
+// GET /form
 func getForm(c *gin.Context) {
 	c.HTML(http.StatusOK, "form.html", nil)
 }
 
+// POST /form
 func postForm(c *gin.Context) {
 	// PostForm returns the specified key from a POST urlencoded form or multipart form when it exists,
 	// otherwise it returns an empty string `("")`.
