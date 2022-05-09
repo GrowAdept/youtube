@@ -60,7 +60,7 @@ func middlewareFunc1(c *gin.Context) {
 func middlewareFunc2(c *gin.Context) {
 	fmt.Println("middlewareFunc2 running")
 	// Abort prevents pending handlers from being called
-	c.Abort()
+	// c.Abort()
 	fmt.Println("middlewareFunc2 ending")
 	c.Next()
 }
