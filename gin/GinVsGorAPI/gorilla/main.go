@@ -8,13 +8,13 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type Gopher struct {
+type gopher struct {
 	ID        string `json:"id"`
 	FirstName string `json:"firstname"`
 	LastName  string `json:"lastname"`
 }
 
-var gophers = []Gopher{
+var gophers = []gopher{
 	{"1", "Ken", "Thompson"},
 	{"2", "Robert", "Griesemer"},
 }
@@ -52,14 +52,14 @@ A Decoder reads and decodes JSON values from an input stream.
 NewDecoder returns a new decoder that reads from r.
 The decoder introduces its own buffering and may read data from r beyond the JSON values requested.
 Decode reads the next JSON-encoded value from its input and stores it in the value pointed to by v.
-hanldle any errors create decoder, setting HTTP status code
+handle any errors create decoder, setting HTTP status code
 since err from defer r.Body.Close() is not nill, closing r.Body must be explicitly closed
 json.Marshal(gophers) marshals gophers slice so w.Write() can recieve it
 w.Header().Set() sets the headers to application/json
 w.Write() writes our JSON to the http.ResponseWriter
 */
 func createGopher(w http.ResponseWriter, r *http.Request) {
-	var newGohper Gopher
+	var newGohper gopher
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&newGohper)
 	if err != nil {
