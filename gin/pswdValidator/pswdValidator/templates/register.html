@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Password Validation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h2>Validate Password</h2>
+
+        {{if .message}}
+            <h4>{{.message}}</h4>
+        {{end}}
+        <form action="/register" method="POST">
+        <label for="password">Password:</label><br>
+        <input type="text" id="password" name="password" value="1234"><br>
+        <input type="submit" value="Submit">
+        </form> 
+    </body>
+</html>
