@@ -17,7 +17,7 @@ func main() {
 	// EnableSMTPCheck enables check email by smtp
 	// most ISPs block outgoing SMTP requests through port 25,
 	// to prevent spam, we don't check smtp by default
-	// verifier = verifier.EnableSMTPCheck()
+	verifier = verifier.EnableSMTPCheck()
 
 	verifier = verifier.EnableDomainSuggest()
 	verifier = verifier.AddDisposableDomains([]string{"tractorjj.com"})
@@ -61,13 +61,13 @@ func verEmailPostHandler(c *gin.Context) {
 		c.HTML(http.StatusBadRequest, "ver-email.html", gin.H{"message": "sorry, we do not accept disposable email addresses"})
 		return
 	}
+	if ret.Suggestion != "" {
+		fmt.Println("email address is not reachable, looking for ", ret.Suggestion, "instead?")
+		c.HTML(http.StatusBadRequest, "ver-email.html", gin.H{"message": "email address is not reachable, looking for " + ret.Suggestion + " instead?"})
+		return
+	}
 	// possible return string values: yes, no, unkown
-	if ret.Reachable != "yes" {
-		if ret.Suggestion != "" {
-			fmt.Println("email address is not reachable, looking for ", ret.Suggestion, "instead?")
-			c.HTML(http.StatusBadRequest, "ver-email.html", gin.H{"message": "email address is not reachable, looking for " + ret.Suggestion + " instead?"})
-			return
-		}
+	if ret.Reachable == "no" {
 		fmt.Println("email address is not reachable")
 		c.HTML(http.StatusBadRequest, "ver-email.html", gin.H{"message": "email address was unreachable"})
 		return
@@ -78,6 +78,6 @@ func verEmailPostHandler(c *gin.Context) {
 		c.HTML(http.StatusBadRequest, "ver-email.html", gin.H{"message": "domain entered not properly setup to recieve emails, MX record not found"})
 		return
 	}
-	c.HTML(http.StatusOK, "ver-email-result.html", gin.H{"email": email})
 	// ... code to register user
+	c.HTML(http.StatusOK, "ver-email-result.html", gin.H{"email": email})
 }
