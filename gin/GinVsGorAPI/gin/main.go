@@ -7,13 +7,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Gopher struct {
+type gopher struct {
 	ID        string `json:"id"`
 	FirstName string `json:"firstname"`
 	LastName  string `json:"lastname"`
 }
 
-var gophers = []Gopher{
+var gophers = []gopher{
 	{"1", "Ken", "Thompson"},
 	{"2", "Robert", "Griesemer"},
 }
@@ -44,7 +44,7 @@ c.BindJSON(&newGohper)
  -we handle any errors
 */
 func createGopher(c *gin.Context) {
-	var newGohper Gopher
+	var newGohper gopher
 	err := c.BindJSON(&newGohper)
 	if err != nil {
 		c.String(http.StatusBadRequest, err.Error())
