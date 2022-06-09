@@ -1,4 +1,4 @@
-module youtube/gin/register
+module github.com/GrowAdept/youtube/gin/register
 
 go 1.18
 

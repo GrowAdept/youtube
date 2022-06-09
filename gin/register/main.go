@@ -1,11 +1,12 @@
 package main
 
 import (
-	"database/sql"
 	"encoding/gob"
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/GrowAdept/youtube/gin/register/models"
 
 	"github.com/gorilla/sessions"
 	"golang.org/x/crypto/bcrypt"
@@ -14,32 +15,24 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var db *sql.DB
-
 var store = sessions.NewCookieStore([]byte("super-secret"))
 
 func init() {
 	store.Options.HttpOnly = true // since we are not accessing any cookies w/ JavaScript, set to true
 	store.Options.Secure = true   // requires secuire HTTPS connection
-	gob.Register(&User{})
+	gob.Register(&models.User{})
 }
 
 func main() {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*/*.html")
 	var err error
-	db, err = sql.Open("mysql", "root:super-secret-password@tcp(localhost:3306)/gin_db")
-	if err != nil {
-		panic(err.Error())
-	}
-	defer db.Close()
-
-	authRouter := router.Group("/user", auth)
 
 	router.GET("/", indexHandler)
 	router.GET("/login", loginGEThandler)
 	router.POST("/login", loginPOSThandler)
 
+	authRouter := router.Group("/user", auth)
 	authRouter.GET("/profile", profileHandler)
 
 	err = router.Run("localhost:8080")
@@ -75,10 +68,10 @@ func loginGEThandler(c *gin.Context) {
 
 // loginPOSThandler verifies login credentials
 func loginPOSThandler(c *gin.Context) {
-	var user User
+	var user models.User
 	user.Username = c.PostForm("username")
 	password := c.PostForm("password")
-	err := user.getUserByUsername()
+	err := user.GetUserByUsername()
 	if err != nil {
 		fmt.Println("error selecting pswd_hash in db by Username, err:", err)
 		c.HTML(http.StatusUnauthorized, "login.html", gin.H{"message": "check username and password"})
@@ -102,7 +95,7 @@ func loginPOSThandler(c *gin.Context) {
 func profileHandler(c *gin.Context) {
 	fmt.Println("profile handler running")
 	session, _ := store.Get(c.Request, "session")
-	var user = &User{}
+	var user = &models.User{}
 	val := session.Values["user"]
 	var ok bool
 	if user, ok = val.(*User); !ok {
@@ -111,15 +104,4 @@ func profileHandler(c *gin.Context) {
 		return
 	}
 	c.HTML(http.StatusOK, "profile.html", gin.H{"user": user})
-}
-
-func (u *User) getUserByUsername() error {
-	stmt := "SELECT * FROM users WHERE username = ?"
-	row := db.QueryRow(stmt, u.Username)
-	err := row.Scan(&u.ID, &u.Username, &u.Email, &u.pswdHash, &u.CreatedAt, &u.Active, &u.verHash, &u.timeout)
-	if err != nil {
-		fmt.Println("getUser() error selecting User, err:", err)
-		return err
-	}
-	return nil
 }

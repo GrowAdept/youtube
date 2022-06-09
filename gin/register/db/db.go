@@ -1,20 +1,19 @@
-package models
+package db
 
 import (
+	"database/sql"
 	"fmt"
-
-	"github.com/GrowAdept/youtube/gin/register/db"
 )
 
-type User struct {
-	ID        string
-	Username  string
-	Email     string
-	pswdHash  string
-	CreatedAt string
-	Active    string
-	verHash   string
-	timeout   string
+var db *sql.DB
+
+func init() {
+	var err error
+	db, err = sql.Open("mysql", "root:super-secret-password@tcp(localhost:3306)/gin_db")
+	if err != nil {
+		panic(err.Error())
+	}
+	defer db.Close()
 }
 
 func (u *User) GetUserByUsername() error {
