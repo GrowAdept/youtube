@@ -2,7 +2,8 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var db *sql.DB
@@ -14,15 +15,4 @@ func init() {
 		panic(err.Error())
 	}
 	defer db.Close()
-}
-
-func (u *User) GetUserByUsername() error {
-	stmt := "SELECT * FROM users WHERE username = ?"
-	row := db.QueryRow(stmt, u.Username)
-	err := row.Scan(&u.ID, &u.Username, &u.Email, &u.pswdHash, &u.CreatedAt, &u.Active, &u.verHash, &u.timeout)
-	if err != nil {
-		fmt.Println("getUser() error selecting User, err:", err)
-		return err
-	}
-	return nil
 }
