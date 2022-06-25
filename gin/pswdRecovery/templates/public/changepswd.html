@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Change Password</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h2>Register New Account</h2><br>
+    <ul>
+        <li>usernames must contain only letters or numbers</li>
+        <li>usernames must be longer than 4 characters but shorter than 51</li>
+        <li>passwords must be of significant complexity</li>
+</ul><br>
+        {{if .message}}
+            <h4>{{.message}}</h4>
+        {{end}}
+        <form action="/emailchangepswd/{{.user.Username}}/{{.verPass}}" method="POST">
+        <label for="password1">Password:</label><br>
+        <input type="password" id="password1" name="password1"><br>
+        <label for="password2">Re-enter Password:</label><br>
+        <input type="password" id="password2" name="password2"><br>
+        <input type="submit" value="Submit">
+        </form> 
+    </body>
+</html>
+<!--need to get user values to input themselves-->

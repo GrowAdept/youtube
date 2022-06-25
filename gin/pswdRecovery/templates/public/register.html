@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Password Validation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h2>Register New Account</h2><br>
+    <ul>
+        <li>usernames must contain only letters or numbers</li>
+        <li>usernames must be longer than 4 characters but shorter than 51</li>
+        <li>passwords must be of significant complexity</li>
+</ul><br>
+        {{if .message}}
+            <h4>{{.message}}</h4>
+        {{end}}
+        <form action="/register" method="POST">
+        <label for="username">Name:</label><br>
+        <input type="text" id="username" name="username"
+        {{if .user}}value="{{.user.Username}}"{{end}}><br>
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email"
+        {{if .user}}value="{{.user.Email}}"{{end}}><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <input type="submit" value="Submit">
+        </form> 
+    </body>
+</html>
+<!--need to get user values to input themselves-->
