@@ -29,7 +29,8 @@ func main() {
 	// func NewWriter(output io.Writer, minwidth, tabwidth, padding int, padchar byte, flags uint) *Writer
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.Debug)
 	fmt.Fprint(w, "Symbol\tName\tMarket\tMarket Price\n")
-	symbols := []string{"APPL", "2222.SR", "MSFT", "GOOG", "TSLA", "BRK-A", "NVDA", "FB", "TSM", "UNH", "TCEHY", "JNJ", "V", "WMT", "005930.KS", "JPM", "XOM", "PG", "600519.SS"}
+	// WARNING: code does not check for no result found situations, if a company changes stock symbol, you will get runtime error
+	symbols := []string{"APPL", "2222.SR", "MSFT", "GOOG", "TSLA", "BRK-A", "NVDA", "META", "TSM", "UNH", "TCEHY", "JNJ", "V", "WMT", "005930.KS", "JPM", "XOM", "PG", "600519.SS"}
 	quotes := make(chan *finance.Quote, len(symbols))
 	start := time.Now()
 	for _, symbol := range symbols {
@@ -39,7 +40,13 @@ func main() {
 	}
 	for i := 0; i < len(symbols); i++ {
 		q := <-quotes
-		fmt.Fprint(w, q.Symbol, "\t", q.ShortName, "\t", q.MarketID, "\t", q.RegularMarketPrice, "\n")
+		/*
+			Use fmt.Println(q) instead, this will print each line as they are ready,
+			tabwriter will wait for all lines are ready and print all at once.  If experimenting
+			with the code you want to see actuall delays, not the tabwriter delay, sorry for inconvenience
+		*/
+		// fmt.Fprint(w, q.Symbol, "\t", q.ShortName, "\t", q.MarketID, "\t", q.RegularMarketPrice, "\n")
+		fmt.Println(q)
 	}
 	w.Flush()
 	wg.Wait()
