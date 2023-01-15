@@ -1,0 +1,160 @@
+package chatGPTapi
+
+import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"strings"
+)
+
+// need to be capitalized to be exported?, use tags if not capitalized
+// Text         string `json:"text"`
+
+type Choice struct {
+	Text         string
+	Index        int
+	LogProbs     int
+	FinishReason string
+}
+
+type Usage struct {
+	PromptTokens     int
+	CompletionTokens int
+	TotalTokens      int
+}
+
+type Response struct {
+	ID      string
+	Object  string
+	Created int
+	Model   string
+	Choices []Choice
+	Usage   Usage
+}
+
+type PromptParams struct {
+	Model            string  `json:"model"` // required
+	Prompt           string  `json:"prompt"`
+	Suffix           string  `json:"suffix"`
+	MaxTokens        int     `json:"max_tokens"`
+	Temperature      float64 `json:"temperature"`
+	TopP             float64 `json:"top_p"`
+	N                int     `json:"n"`
+	Stream           bool    `json:"stream"`
+	LogProbs         int     `json:"logprobs"`
+	Echo             bool    `json:"echo"`
+	Stop             string  `json:"stop"`
+	PressencePenalty float64 `json:"presence_penalty"`
+	FrequencyPenalty float64 `json:"frequency_penalty"`
+	BestOf           int     `json:"best_of"`
+	// LogitBias        map[string]int `json:"logit_bias"`
+	User string `json:"user"`
+}
+
+type Client struct {
+	APIurl     string
+	APIkey     string
+	HTTPclient http.Client
+}
+
+func CreateClient(APIkey, APIurl string) (C Client) {
+	C.APIkey = APIkey
+	C.APIurl = APIurl
+	return C
+}
+
+func (C Client) AskGPTAnsw(prompt string) (answer string, err error) {
+	fmt.Println("\n askGPTAnsw running")
+	P := CreatePrompParams(prompt)
+	var JSONparams []byte
+	JSONparams, err = json.Marshal(P)
+	fmt.Println("\n string(JSONparams):", string(JSONparams))
+	fmt.Println("\n JSONparams after marshal:", JSONparams)
+	fmt.Println("\n marshal error:", err)
+	req, err := http.NewRequest("POST", C.APIurl, strings.NewReader(string(JSONparams)))
+	if err != nil {
+		fmt.Println("create request error:", err)
+		return
+	}
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Authorization", "Bearer "+C.APIkey)
+	fmt.Println("\n req:", req)
+	fmt.Println("\n err from new request:", err)
+	// Send the request and retrieve the response
+	resp, err := C.HTTPclient.Do(req)
+	fmt.Println("\n resp:", resp)
+	fmt.Println("\n err:", err)
+	if err != nil {
+		fmt.Println("send request error:", err)
+		return
+	}
+	defer resp.Body.Close()
+	// Read and parse the response
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("read and parse response error:", err)
+		return
+	}
+	fmt.Println("\n body:", body)
+	fmt.Println("\n string(body):", string(body))
+	var response Response
+	json.Unmarshal(body, &response)
+	fmt.Println("\n response.Choices[0].Text:", response.Choices[0].Text)
+	answer = response.Choices[0].Text
+	return answer, err
+}
+
+func (C Client) AskGPTResp(prompt string) (resp *http.Response, err error) {
+	fmt.Println("\n askGPTAnsw running")
+	P := CreatePrompParams(prompt)
+	var JSONparams []byte
+	JSONparams, err = json.Marshal(P)
+	fmt.Println("\n string(JSONparams):", string(JSONparams))
+	fmt.Println("\n JSONparams after marshal:", JSONparams)
+	fmt.Println("\n marshal error:", err)
+	req, err := http.NewRequest("POST", C.APIurl, strings.NewReader(string(JSONparams)))
+	if err != nil {
+		fmt.Println("create request error:", err)
+		return
+	}
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Authorization", "Bearer "+C.APIkey)
+	fmt.Println("\n req:", req)
+	fmt.Println("\n err from new request:", err)
+	// Send the request and retrieve the response
+	resp, err = C.HTTPclient.Do(req)
+	fmt.Println("\n resp:", resp)
+	fmt.Println("\n err:", err)
+	if err != nil {
+		fmt.Println("send request error:", err)
+		return
+	}
+	defer resp.Body.Close()
+	// Read and parse the response
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("read and parse response error:", err)
+		return
+	}
+	fmt.Println("\n body:", body)
+	fmt.Println("\n string(body):", string(body))
+	var response Response
+	json.Unmarshal(body, &response)
+	return resp, err
+}
+
+func CreatePrompParams(prompt string) (P PromptParams) {
+	P.Model = "text-davinci-003"
+	P.Prompt = prompt
+	P.MaxTokens = 100
+	P.Temperature = 1
+	P.TopP = 1
+	P.N = 1
+	P.Stream = false
+	P.Echo = false
+	P.PressencePenalty = 0
+	P.FrequencyPenalty = 0
+	P.BestOf = 1
+	return
+}
