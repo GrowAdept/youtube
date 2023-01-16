@@ -8,8 +8,24 @@ import (
 	"strings"
 )
 
-// need to be capitalized to be exported?, use tags if not capitalized
-// Text         string `json:"text"`
+type PromptParams struct {
+	Model            string  `json:"model"` // required
+	Prompt           string  `json:"prompt"`
+	Suffix           string  `json:"suffix"`
+	MaxTokens        int     `json:"max_tokens"`
+	Temperature      float64 `json:"temperature"`
+	TopP             float64 `json:"top_p"`
+	N                int     `json:"n"`
+	Stream           bool    `json:"stream"`
+	LogProbs         int     `json:"logprobs"`
+	Echo             bool    `json:"echo"`
+	Stop             string  `json:"stop"`
+	PressencePenalty float64 `json:"presence_penalty"`
+	FrequencyPenalty float64 `json:"frequency_penalty"`
+	BestOf           int     `json:"best_of"`
+	// LogitBias        map[string]int `json:"logit_bias"`
+	User string `json:"user"`
+}
 
 type Choice struct {
 	Text         string
@@ -33,25 +49,6 @@ type Response struct {
 	Usage   Usage
 }
 
-type PromptParams struct {
-	Model            string  `json:"model"` // required
-	Prompt           string  `json:"prompt"`
-	Suffix           string  `json:"suffix"`
-	MaxTokens        int     `json:"max_tokens"`
-	Temperature      float64 `json:"temperature"`
-	TopP             float64 `json:"top_p"`
-	N                int     `json:"n"`
-	Stream           bool    `json:"stream"`
-	LogProbs         int     `json:"logprobs"`
-	Echo             bool    `json:"echo"`
-	Stop             string  `json:"stop"`
-	PressencePenalty float64 `json:"presence_penalty"`
-	FrequencyPenalty float64 `json:"frequency_penalty"`
-	BestOf           int     `json:"best_of"`
-	// LogitBias        map[string]int `json:"logit_bias"`
-	User string `json:"user"`
-}
-
 type Client struct {
 	APIurl     string
 	APIkey     string
@@ -64,8 +61,7 @@ func CreateClient(APIkey, APIurl string) (C Client) {
 	return C
 }
 
-func (C Client) AskGPTAnsw(prompt string) (answer string, err error) {
-	fmt.Println("\n askGPTAnsw running")
+func (C Client) AskGPTansw(prompt string) (answer string, err error) {
 	P := CreatePrompParams(prompt)
 	var JSONparams []byte
 	JSONparams, err = json.Marshal(P)
@@ -105,7 +101,7 @@ func (C Client) AskGPTAnsw(prompt string) (answer string, err error) {
 	return answer, err
 }
 
-func (C Client) AskGPTResp(prompt string) (resp *http.Response, err error) {
+func (C Client) AskGPTresp(prompt string) (resp *http.Response, err error) {
 	fmt.Println("\n askGPTAnsw running")
 	P := CreatePrompParams(prompt)
 	var JSONparams []byte
