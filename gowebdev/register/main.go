@@ -16,10 +16,16 @@ var tpl *template.Template
 var db *sql.DB
 
 func main() {
-	tpl, _ = template.ParseGlob("templates/*.html")
 	var err error
+	tpl, err = template.ParseGlob("templates/*.html")
+	if err != nil {
+		fmt.Println("Parsing Templates Error:")
+		panic(err.Error)
+	}
+	var db *sql.DB
 	db, err = sql.Open("mysql", "root:password@tcp(localhost:3306)/testdb")
 	if err != nil {
+		fmt.Println("Openning DB Error:")
 		panic(err.Error())
 	}
 	defer db.Close()
