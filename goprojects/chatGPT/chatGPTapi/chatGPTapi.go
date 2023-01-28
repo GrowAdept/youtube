@@ -9,22 +9,22 @@ import (
 )
 
 type PromptParams struct {
-	Model            string  `json:"model"` // required
-	Prompt           string  `json:"prompt"`
-	Suffix           string  `json:"suffix"`
-	MaxTokens        int     `json:"max_tokens"`
-	Temperature      float64 `json:"temperature"`
-	TopP             float64 `json:"top_p"`
-	N                int     `json:"n"`
-	Stream           bool    `json:"stream"`
-	LogProbs         int     `json:"logprobs"`
-	Echo             bool    `json:"echo"`
-	Stop             string  `json:"stop"`
-	PressencePenalty float64 `json:"presence_penalty"`
-	FrequencyPenalty float64 `json:"frequency_penalty"`
-	BestOf           int     `json:"best_of"`
-	// LogitBias        map[string]int `json:"logit_bias"`
-	User string `json:"user"`
+	Model            string         `json:"model"` // required
+	Prompt           string         `json:"prompt"`
+	Suffix           string         `json:"suffix,omitempty"`
+	MaxTokens        int            `json:"max_tokens,omitempty"`
+	Temperature      float64        `json:"temperature,omitempty"`
+	TopP             float64        `json:"top_p,omitempty"`
+	N                int            `json:"n,omitempty"`
+	Stream           bool           `json:"stream,omitempty"`
+	LogProbs         int            `json:"logprobs,omitempty"`
+	Echo             bool           `json:"echo,omitempty"`
+	Stop             string         `json:"stop,omitempty"`
+	PressencePenalty float64        `json:"presence_penalty,omitempty"`
+	FrequencyPenalty float64        `json:"frequency_penalty,omitempty"`
+	BestOf           int            `json:"best_of,omitempty"`
+	LogitBias        map[string]int `json:"logit_bias,omitempty"`
+	User             string         `json:"user,omitempty"`
 }
 
 type Choice struct {

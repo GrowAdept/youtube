@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Chat GPT Interface</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <h2>Talk with ChatGPT!</h2><br>
+
+    <form action="/ask" method="POST">
+        <label for="question">Ask ChatGPT:</label>
+        <input type="text" id="question" name="question">
+        <input type="submit" value="Submit">
+    </form>
+
+    <div>
+        {{if .message}}
+        <h5>{{.message}}</h5>
+        {{end}}
+    </div>
+
+</body>
+
+</html>
