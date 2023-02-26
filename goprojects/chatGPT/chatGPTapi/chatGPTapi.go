@@ -65,8 +65,8 @@ func (C Client) AskGPTansw(prompt string) (answer string, err error) {
 	P := CreatePrompParams(prompt)
 	var JSONparams []byte
 	JSONparams, err = json.Marshal(P)
-	fmt.Println("\n string(JSONparams):", string(JSONparams))
 	fmt.Println("\n JSONparams after marshal:", JSONparams)
+	fmt.Println("\n string(JSONparams):", string(JSONparams))
 	fmt.Println("\n marshal error:", err)
 	req, err := http.NewRequest("POST", C.APIurl, strings.NewReader(string(JSONparams)))
 	if err != nil {
@@ -75,12 +75,8 @@ func (C Client) AskGPTansw(prompt string) (answer string, err error) {
 	}
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Authorization", "Bearer "+C.APIkey)
-	fmt.Println("\n req:", req)
-	fmt.Println("\n err from new request:", err)
 	// Send the request and retrieve the response
 	resp, err := C.HTTPclient.Do(req)
-	fmt.Println("\n resp:", resp)
-	fmt.Println("\n err:", err)
 	if err != nil {
 		fmt.Println("send request error:", err)
 		return
@@ -96,6 +92,7 @@ func (C Client) AskGPTansw(prompt string) (answer string, err error) {
 	fmt.Println("\n string(body):", string(body))
 	var response Response
 	json.Unmarshal(body, &response)
+	fmt.Println("response:", response)
 	fmt.Println("\n response.Choices[0].Text:", response.Choices[0].Text)
 	answer = response.Choices[0].Text
 	return answer, err
